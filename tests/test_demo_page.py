@@ -17,28 +17,40 @@ base_url = "https://devexpress.github.io/testcafe/example/"
 
 def test_user_name_presented(page: Page):
     page.goto(base_url)
+    name = "Dvora Hirshaut"
+
     #fill only in input or texteara
     #press_sequentially no matter what the type.
-    page.locator("#developer-name").press_sequentially("Dvora Hirshaut", delay=300)
+    page.locator("#developer-name").press_sequentially(name, delay=30)
 
     page.get_by_test_id("remote-testing-checkbox").check()
-    page.get_by_test_id("remote-testing-checkbox").check()
+    page.get_by_test_id("reusing-js-code-checkbox").check()
+    page.get_by_test_id("parallel-testing-checkbox").uncheck()
+    page.get_by_test_id("ci-checkbox").uncheck()
+    page.get_by_test_id("analysis-checkbox").check()
+
 
     expect(page.locator("header h1")).to_have_text("Example")
     expect(page.locator(".main-content header p").first).to_contain_text("This webpage is used as a sample in TestCafe tutorials.")
 
 
-    # page.get_by_test_id("reusing-js-code-checkbox").click()
-    # page.get_by_test_id("reusing-js-code-checkbox").click()
-
     page.get_by_test_id("windows-radio").check()
     page.locator('select#preferred-interface').select_option("JavaScript API")
 
     page.locator('[name="tried-test-cafe"]').check()
+    # if page.locator('[name="tried-test-cafe"]').is_enabled():
+    #     page.locator('[class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"]').focus()
+    #     page.keyboard.press("ArrowRight")
 
+
+    page.wait_for_timeout(3000)
     page.get_by_test_id("comments-area").fill("This is comment area")
 
     page.get_by_role("button", name="Submit").click()
+
+    expect(page.get_by_test_id("thank-you-header")).to_contain_text(f"Thank you, {name}")
+    expect(page).to_have_url(f"{base_url}thank-you.html")
+    expect(page.locator(".result-content p").first).to_have_text(f"To learn more about TestCafe, please visit:\ndevexpress.github.io/testcafe")
 
     page.wait_for_timeout(3000)
 
