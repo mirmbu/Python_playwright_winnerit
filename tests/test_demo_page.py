@@ -18,6 +18,7 @@ base_url = "https://devexpress.github.io/testcafe/example/"
 def test_user_name_presented(page: Page):
     page.goto(base_url)
     name = "Dvora Hirshaut"
+    i=3
 
     #fill only in input or texteara
     #press_sequentially no matter what the type.
@@ -38,9 +39,13 @@ def test_user_name_presented(page: Page):
     page.locator('select#preferred-interface').select_option("JavaScript API")
 
     page.locator('[name="tried-test-cafe"]').check()
-    # if page.locator('[name="tried-test-cafe"]').is_enabled():
-    #     page.locator('[class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"]').focus()
-    #     page.keyboard.press("ArrowRight")
+    if page.locator('[name="tried-test-cafe"]').is_checked() == True:
+        page.locator('[class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"]').focus()
+        for i in range(1,10):
+            page.keyboard.press("ArrowRight")
+            print("True")
+    else:
+        print("False")
 
 
     page.wait_for_timeout(3000)
