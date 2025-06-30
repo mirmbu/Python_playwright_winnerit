@@ -39,13 +39,10 @@ def test_user_name_presented(page: Page):
     page.locator('select#preferred-interface').select_option("JavaScript API")
 
     page.locator('[name="tried-test-cafe"]').check()
-    if page.locator('[name="tried-test-cafe"]').is_checked() == True:
+    if page.locator('[name="tried-test-cafe"]').is_checked():
         page.locator('[class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"]').focus()
-        for i in range(1,10):
-            page.keyboard.press("ArrowRight")
-            print("True")
-    else:
-        print("False")
+        page.locator('[class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"]').click(position={"x": 650, "y": 5})
+
 
 
     page.wait_for_timeout(3000)
