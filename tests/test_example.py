@@ -1,4 +1,3 @@
-import re
 from playwright.sync_api import Page, expect, BrowserContext, APIRequestContext
 
 
@@ -33,9 +32,6 @@ def test_example(page: Page, context: BrowserContext, api_context: APIRequestCon
     # same thing in API requests. in Page can do that.
     # page.request.get("https://playwright.dev/")
     # api_context.get("https://playwright.dev/")
-
-
-
 
     # Click the get started link.
     page.get_by_role("link", name="Get started").click()
